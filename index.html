@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Task Manager</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <h1><i class="fas fa-tasks" aria-hidden="true"></i> Task Manager</h1>
+                <div class="user-stats">
+                    <button class="badge-count" aria-label="View Badges">
+                        <i class="fas fa-medal" aria-hidden="true"></i> Badges: <span id="badgeCount">0</span>
+                    </button>
+                    <span class="completed-count">
+                        <i class="fas fa-check-circle" aria-hidden="true"></i> Completed: <span id="completedCount">0</span>
+                    </span>
+                </div>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
+                <i class="fas fa-moon" aria-hidden="true"></i>
+            </button>
+        </header>
+
+        <main>
+            <section class="filters-section" aria-labelledby="filtersHeading">
+                <h2 id="filtersHeading" class="sr-only">Task Filters</h2>
+                <input type="text" id="searchInput" class="search-bar" placeholder="Search tasks..." aria-label="Search tasks">
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label for="filterPriority">Filter by Priority</label>
+                        <select id="filterPriority">
+                            <option value="all">All Priorities</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filterDueDate">Filter by Due Date</label>
+                        <select id="filterDueDate">
+                            <option value="all">All Dates</option>
+                            <option value="today">Due Today</option>
+                            <option value="week">Due This Week</option>
+                            <option value="month">Due This Month</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="sortBy">Sort By</label>
+                        <select id="sortBy">
+                            <option value="dueDate">Due Date</option>
+                            <option value="priority">Priority</option>
+                            <option value="title">Title</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="sortOrder">Sort Order</label>
+                        <select id="sortOrder">
+                            <option value="asc">Ascending</option>
+                            <option value="desc">Descending</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <section class="task-form-section" aria-labelledby="addTaskHeading">
+                <h2 id="addTaskHeading" class="sr-only">Add New Task</h2>
+                <form class="task-form" id="taskForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="taskTitle">
+                                <i class="fas fa-heading" aria-hidden="true"></i> Title
+                            </label>
+                            <input type="text" id="taskTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskDescription">
+                                <i class="fas fa-align-left" aria-hidden="true"></i> Description
+                            </label>
+                            <textarea id="taskDescription" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskDueDate">
+                                <i class="fas fa-calendar-alt" aria-hidden="true"></i> Due Date
+                            </label>
+                            <input type="date" id="taskDueDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="taskPriority">
+                                <i class="fas fa-flag" aria-hidden="true"></i> Priority
+                            </label>
+                            <select id="taskPriority">
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskRecurrence">
+                                <i class="fas fa-redo" aria-hidden="true"></i> Recurrence
+                            </label>
+                            <select id="taskRecurrence">
+                                <option value="none">None</option>
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskAttachment">
+                                <i class="fas fa-paperclip" aria-hidden="true"></i> Attachment
+                            </label>
+                            <input type="file" id="taskAttachment" accept="image/*,.pdf,.doc,.docx">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus" aria-hidden="true"></i> Add Task
+                    </button>
+                </form>
+            </section>
+
+            <section class="tasks-container" aria-label="Task Lists">
+                <div class="task-list" id="todoList">
+                    <h2>To Do</h2>
+                </div>
+                <div class="task-list" id="inProgressList">
+                    <h2>In Progress</h2>
+                </div>
+                <div class="task-list" id="doneList">
+                    <h2>Done</h2>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+    <div class="modal" id="badgesModal" aria-labelledby="badgesModalTitle">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <h2 id="badgesModalTitle">Your Badges</h2>
+            <div class="badges-container" id="badgesContainer"></div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
